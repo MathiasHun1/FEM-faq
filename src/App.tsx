@@ -52,7 +52,8 @@ function App() {
               />
             </ul>
             <button
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 return selectedRating ? setSubmitted(true) : '';
               }}
               className="bg-amber-600 text-gray-950 text-sm font-bold uppercase tracking-widest w-full rounded-[99999px] py-4 mt-2 hover:bg-white"
