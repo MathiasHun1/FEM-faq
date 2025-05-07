@@ -16,7 +16,7 @@ function App() {
             <img src={star} alt="" />
           </div>
 
-          <div className="flex flex-col gap-4">
+          <form className="flex flex-col gap-4">
             <h1 className="text-2xl font-bold sm:text-[calc(28rem/16)]">
               How did we do?
             </h1>
@@ -24,7 +24,7 @@ function App() {
               Please let us know how we did with your support request. All
               feedback is appreciated to help us improve offering!
             </p>
-            <div className="flex justify-between">
+            <ul className="flex justify-between">
               <RatingButton
                 value={1}
                 selectedRating={selectedRating}
@@ -50,7 +50,7 @@ function App() {
                 selectedRating={selectedRating}
                 setSelectedRating={setSelectedRating}
               />
-            </div>
+            </ul>
             <button
               onClick={() => {
                 return selectedRating ? setSubmitted(true) : '';
@@ -59,7 +59,7 @@ function App() {
             >
               Submit
             </button>
-          </div>
+          </form>
         </CardWrapper>
       )}
 
@@ -116,15 +116,24 @@ function RatingButton({
   const isActive = value === selectedRating;
 
   return (
-    <button
-      onClick={() => setSelectedRating(value)}
+    <li
       className={clsx(
-        'text-base font-bold bg-[#262e38] text-gray-400 w-[42px] aspect-square grid place-items-center rounded-full cursor-pointer hover:bg-white sm:w-[51px]',
-        { 'bg-amber-600 hover:bg-amber-600!': isActive }
+        'text-base font-bold bg-[#262e38] text-gray-400 w-[42px] aspect-square grid place-items-center rounded-full cursor-pointer hover:bg-white hover:text-gray-900 sm:w-[51px] relative',
+        { 'bg-amber-600 hover:bg-amber-600! text-gray-900': isActive }
       )}
     >
-      {value}
-    </button>
+      <label htmlFor={`input-${value}`} className="pointer-events-none">
+        {value}
+      </label>
+      <input
+        className="absolute inset-0 opacity-0 cursor-pointer focus:outline-2 focus:outline-white"
+        id={`input-${value}`}
+        type="radio"
+        value={value}
+        checked={isActive}
+        onChange={() => setSelectedRating(value)}
+      />
+    </li>
   );
 }
 
