@@ -25,31 +25,13 @@ function App() {
               feedback is appreciated to help us improve offering!
             </p>
             <ul className="flex justify-between">
-              <RatingButton
-                value={1}
-                selectedRating={selectedRating}
-                setSelectedRating={setSelectedRating}
-              />
-              <RatingButton
-                value={2}
-                selectedRating={selectedRating}
-                setSelectedRating={setSelectedRating}
-              />
-              <RatingButton
-                value={3}
-                selectedRating={selectedRating}
-                setSelectedRating={setSelectedRating}
-              />
-              <RatingButton
-                value={4}
-                selectedRating={selectedRating}
-                setSelectedRating={setSelectedRating}
-              />
-              <RatingButton
-                value={5}
-                selectedRating={selectedRating}
-                setSelectedRating={setSelectedRating}
-              />
+              {[1, 2, 3, 4, 5].map((inp) => (
+                <RatingButton
+                  value={inp}
+                  selectedRating={selectedRating}
+                  setSelectedRating={setSelectedRating}
+                />
+              ))}
             </ul>
             <button
               onClick={(e) => {
@@ -119,21 +101,25 @@ function RatingButton({
   return (
     <li
       className={clsx(
-        'text-base font-bold bg-[#262e38] text-gray-400 w-[42px] aspect-square grid place-items-center rounded-full cursor-pointer hover:bg-white hover:text-gray-900 sm:w-[51px] relative',
+        'focus-within:outline-2 focus-within:outline-amber-50 text-base font-bold bg-[#262e38] text-gray-400 w-[42px] aspect-square grid place-items-center rounded-full cursor-pointer hover:bg-white hover:text-gray-900 sm:w-[51px] relative',
         { 'bg-amber-600 hover:bg-amber-600! text-gray-900': isActive }
       )}
     >
-      <label htmlFor={`input-${value}`} className="pointer-events-none">
-        {value}
-      </label>
       <input
-        className="absolute inset-0 opacity-0 cursor-pointer focus:outline-2 focus:outline-white"
+        className="absolute inset-0 opacity-0 cursor-pointer"
         id={`input-${value}`}
+        name={`input-${value}`}
         type="radio"
         value={value}
         checked={isActive}
         onChange={() => setSelectedRating(value)}
       />
+      <label
+        htmlFor={`input-${value}`}
+        className="w-full h-full grid place-items-center rounded-full pointer-events-none"
+      >
+        {value}
+      </label>
     </li>
   );
 }
